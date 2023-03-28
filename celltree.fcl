@@ -45,5 +45,7 @@ physics.analyzers.wirecell.saveMC : false
 physics.analyzers.wirecell.saveJSON : false
 physics.analyzers.wirecell.saveRaw: true
 physics.analyzers.wirecell.RawDigitLabel: "tpcrawdecoder:daq"
+physics.analyzers.wirecell.saveCalib: true
+physics.analyzers.wirecell.CalibLabel: "tpcrawdecoder:gauss"
 physics.analyzers.wirecell.saveSimChannel: true
 physics.analyzers.wirecell.SimChannelLabel: "tpcrawdecoder:simpleSC"
