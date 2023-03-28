@@ -32,7 +32,7 @@ double median(TH1F* h1){
     return mean;
 }
 
-void dump_waveform(int chmin=0, int chmax=30720, bool trim_baseline=true, int nticks=6000, std::string filename="celltree.root"){ // [chmin, chmax]
+void dump_waveform(int chmin=2560*3, int chmax=2560*4, bool trim_baseline=false, int nticks=6000, std::string filename="celltree.root"){ // [chmin, chmax]
     gInterpreter->GenerateDictionary("vector<unsigned short>", "vector");
     gInterpreter->GenerateDictionary("vector<int>", "vector");
 
@@ -42,12 +42,12 @@ void dump_waveform(int chmin=0, int chmax=30720, bool trim_baseline=true, int nt
     int calib_nChannel;
     std::vector<int>* calib_channelId = 0;
     TClonesArray* calib_wf = 0;
-    // t->SetBranchAddress("calib_nChannel", &calib_nChannel);
-    // t->SetBranchAddress("calib_channelId", &calib_channelId);
-    // t->SetBranchAddress("calib_wf", &calib_wf);
-    t->SetBranchAddress("raw_nChannel", &calib_nChannel);
-    t->SetBranchAddress("raw_channelId", &calib_channelId);
-    t->SetBranchAddress("raw_wf", &calib_wf);
+    t->SetBranchAddress("calib_nChannel", &calib_nChannel);
+    t->SetBranchAddress("calib_channelId", &calib_channelId);
+    t->SetBranchAddress("calib_wf", &calib_wf);
+    // t->SetBranchAddress("raw_nChannel", &calib_nChannel);
+    // t->SetBranchAddress("raw_channelId", &calib_channelId);
+    // t->SetBranchAddress("raw_wf", &calib_wf);
 
     int simide_size;
     std::vector<int>* simide_channelIdY = 0;
@@ -101,7 +101,7 @@ void dump_waveform(int chmin=0, int chmax=30720, bool trim_baseline=true, int nt
         float nele = simide_numElectrons->at(idx);
         h3->Fill(tdc);
         if (channelId>=chmin and channelId<=chmax) {
-            cout << "channel: " << channelId << " tdc: " << tdc << " nele: " << nele << endl;
+            // cout << "channel: " << channelId << " tdc: " << tdc << " nele: " << nele << endl;
             int tbin = (int)(tdc);
             h2->SetBinContent(channelId-chmin+1, tbin, nele + h2->GetBinContent(channelId-chmin+1, tbin));
         }
